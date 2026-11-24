@@ -11,7 +11,7 @@ SECRET="-ubackup -hlocalhost -pwLJt+hYgiHO4P3Ysd4jM+"
 TIME=`date +%F`
 
 #列表
-DB_NAMES=(`mysql $SECRET -e "show databases;" | grep -Ev "Database|mysql|sys|_schema|_buffer|_access_log|_test"`)
+DB_NAMES=($(mysql $SECRET -Nse "show databases;" | grep -Ev "^(mysql|sys|information_schema|performance_schema|percona)$|_(test|buffer)$"))
 
 [ -d $BACKUP_PATH ] || mkdir $BACKUP_PATH
 
